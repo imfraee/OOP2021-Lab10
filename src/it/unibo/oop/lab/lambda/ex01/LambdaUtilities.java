@@ -1,11 +1,14 @@
 package it.unibo.oop.lab.lambda.ex01;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -61,6 +64,8 @@ public final class LambdaUtilities {
         /*
          * Suggestion: consider Optional.filter
          */
+        final List<Optional<T>> ol = new ArrayList<Optional<T>>();
+        
         return null;
     }
 
@@ -80,7 +85,14 @@ public final class LambdaUtilities {
         /*
          * Suggestion: consider Map.merge
          */
-        return null;
+        final Map<R, Set<T>> map = new HashMap<>();
+        list.forEach(t -> {
+            map.merge(op.apply(t), new HashSet<>(Arrays.asList(t)), (t1, t2) -> {
+                t1.addAll(t2);
+                return t2;
+            });
+        });
+        return map;
     }
 
     /**
