@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -64,9 +63,11 @@ public final class LambdaUtilities {
         /*
          * Suggestion: consider Optional.filter
          */
-        final List<Optional<T>> ol = new ArrayList<Optional<T>>();
-        
-        return null;
+        final List<Optional<T>> ol = new ArrayList<>();
+        list.forEach((o) -> {
+            ol.add(pre.test(o) ? Optional.of(o) : Optional.empty());
+        });
+        return ol;
     }
 
     /**
@@ -113,6 +114,7 @@ public final class LambdaUtilities {
          * 
          * Keep in mind that a map can be iterated through its forEach method
          */
+    	final Map<K, V> omap = new HashMap<>();
         return null;
     }
 
