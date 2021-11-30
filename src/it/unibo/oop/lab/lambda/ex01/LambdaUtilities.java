@@ -90,7 +90,7 @@ public final class LambdaUtilities {
         list.forEach(t -> {
             map.merge(op.apply(t), new HashSet<>(Arrays.asList(t)), (t1, t2) -> {
                 t1.addAll(t2);
-                return t2;
+                return t1;
             });
         });
         return map;
@@ -114,8 +114,11 @@ public final class LambdaUtilities {
          * 
          * Keep in mind that a map can be iterated through its forEach method
          */
-    	final Map<K, V> omap = new HashMap<>();
-        return null;
+        final Map<K, V> omap = new HashMap<>();
+        map.forEach((k, v) -> {
+           omap.put(k, v.orElse(def.get()));
+        });
+        return omap;
     }
 
     /**
